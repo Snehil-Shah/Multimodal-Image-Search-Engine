@@ -1,0 +1,3 @@
+torchvision
+resnet
+OpenAI CLIP
