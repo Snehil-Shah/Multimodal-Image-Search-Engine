@@ -1,13 +1,14 @@
 import gradio as gr
+import os
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("clip-ViT-B-32")
 
 qdrant_client = QdrantClient(
-    url = 'url',
+    url = os.environ['QDRANT_URL'],
     port= 443,
-    api_key = "key",
+    api_key = os.environ['QDRANT_API_KEY']
 )
 
 def search_images(modality, count, input_text, input_image):
