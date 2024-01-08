@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git --force push https://Snehil-Shah:$HF_TOKEN@huggingface.co/spaces/Snehil-Shah/Multimodal-Image-Search-Engine main
+        run: git push --force https://Snehil-Shah:$HF_TOKEN@huggingface.co/spaces/Snehil-Shah/Multimodal-Image-Search-Engine main
