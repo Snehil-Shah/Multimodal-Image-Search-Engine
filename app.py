@@ -21,7 +21,10 @@ def search_images(modality, count, input_text, input_image):
     limit = count
     )
 
-    return [gr.update(value="## Results")]+[gr.update(value=result.payload['url'], visible=True) for result in results]+[gr.update(visible=False)]*(100-count)
+    return [gr.update(value="## Results\nThe image data is limited, don't expect to find everything!")]+[gr.Image(value=result.payload['url'], visible=True) for result in results]+[gr.Image(visible=False)]*(100-count)
+
+def clear():
+    return [gr.update(value="")]+[gr.Image(visible=False)]*100
 
 def input_interface(choice):
     if choice == "Text":
@@ -30,7 +33,7 @@ def input_interface(choice):
         return [gr.update(visible=False), gr.update(visible=True)]
 
 with gr.Blocks() as interface:
-    gr.Markdown("# Multi-Modal Image Search Engine\nSemantically search over 15k images using text or image inputs. The image data is limited, don't expect to find everything!")
+    gr.Markdown("# Multi-Modal Image Search Engine\nSemantically search over 15k images using text or image inputs!")
 
     # Input Interface
     with gr.Column(variant='compact'):
@@ -54,6 +57,6 @@ with gr.Blocks() as interface:
             with gr.Row():
                 for j in range(4):
                     images.append(gr.Image(visible=False))
-    images_btn.click(search_images, inputs=[input_type, count, text_input, image_input], outputs=images)
+    images_btn.click(clear, outputs=images).then(search_images, inputs=[input_type, count, text_input, image_input], outputs=images)
 
     interface.launch()
